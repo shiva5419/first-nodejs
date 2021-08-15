@@ -1,0 +1,23 @@
+{
+  "name": "first-nodejs",
+  "version": "1.0.0",
+  "description": "testing project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u0016https://github.com/shiva5419/shiva5419.git"
+  },
+  "keywords": [
+    "demo",
+    "project"
+  ],
+  "author": "shiva prakash",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1"
+  }
+}
