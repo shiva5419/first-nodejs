@@ -1,15 +1,40 @@
 const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
+
 let app = express();
+
+app.set('view engine', 'pug')
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}))
 
-const port = process.env.PORT || 9999;
+const port = process.env.PORT || 9998;
+/*
+app.use('/', express.static(__dirname+'/views/index.html'), function(req, res) {
+    //res.render('index.html');
+});*/
 
-app.get('/',(req, res) => {
+app.use(express.static('views'))
+
+app.get('/', function (req, res) {
+   // res.sendFile(__dirname + '/views/index.html')
+    res.render(__dirname + '/views/index.html', { title: 'Hey', message: 'Hello there!' });
+
+})
+
+
+
+
+
+
+
+
+
+/*app.get('/',(req, res) => {
 	res.send(`<h1> Hello World</h1>`);
-});
+});*/
 app.get('/about',(req, res) => {
 	res.send(`<h1> Hello About this Page</h1>`);
 });
@@ -35,5 +60,12 @@ app.post('/postservice',(req, res) => {
 	res.send(req.body);
 });
 
+var server = app.listen(port, function () {
+   var host = server.address().address
+   var port = server.address().port
+   
+   console.log("Example app listening at http://%s:%s", host, port)
+})
+/*
 app.listen(port);
-console.log('server connection'+port);
+console.log('server connection'+port);*/
