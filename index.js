@@ -5,7 +5,6 @@ const path = require('path');
 
 let app = express();
 
-app.set('view engine', 'pug')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}))
@@ -23,6 +22,30 @@ app.get('/', function (req, res) {
     res.render(__dirname + '/views/index.html', { title: 'Hey', message: 'Hello there!' });
 
 })
+
+const WebSocketServer = require('ws').Server;
+const http = require('http');
+const webSocketsServer = http.createServer();
+
+const WSS = new WebSocketServer({port: 3232, httpServer: webSocketsServer});
+
+WSS.on('connection', (ws)=>{
+    ws.on('message', (message)=>{
+        var message = message.toString('binary');
+        console.log(message);
+        if(message === 'close'){
+            ws.close();
+        }else {
+            WSS.clients.forEach((client)=>{
+
+                client.send(message);
+            });
+        }
+    });
+    console.log('We are connected');
+});
+
+
 
 
 
